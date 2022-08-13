@@ -1,0 +1,14 @@
+
+#icon-bar{
+	color:white;
+}	
+.img-thumbnail{
+	-webkit-box-shadow: 15px 42px 42px -39px rgba(0,0,0,0.75);
+-moz-box-shadow: 15px 42px 42px -39px rgba(0,0,0,0.75);
+box-shadow: 15px 42px 42px -39px rgba(0,0,0,0.75);
+ }
+ #mynav{
+	 background:lightblue;
+	 margin-bottom:4px;
+	 
+ }

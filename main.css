@@ -1,0 +1,47 @@
+*{padding:0;margin:0;	
+}
+
+
+#mynav{
+	background:#fff;
+	border-radius:0;
+	margin-bottom:0;
+}
+#mynav .navbar-nav>li>a {
+    color: green;
+	font-weight:bold;
+}
+#banner-wrapper{
+	padding:30px;
+	background-image:url('../images/i.jpg');
+	background:cover;
+	background-attachment: fixed;
+}
+h2{font-family: 'Lobster', cursive;
+font-family: 'Dancing Script', cursive;
+word-spacing:15px;
+box-sizing:border-box;
+box-sizing:40px;
+}
+.tinku{
+	padding:50px;
+	background-color: rgba(255, 0, 0, 0.3);
+	-webkit-box-shadow: 6px 6px 23px 3px rgba(0,0,0,0.75);
+	-moz-box-shadow: 6px 6px 23px 3px rgba(0,0,0,0.75);
+	box-shadow: 6px 6px 23px 3px rgba(0,0,0,0.75);
+}
+.form-group input{
+	padding:7px 5px; 
+	font-size:16px;
+	font-weight:bold;
+}
+.form-group{
+	padding:7px;
+	
+}
+.sidebar{
+		
+}
+.newul{
+	list-style:none;
+}

@@ -1,48 +1,21 @@
-<?php
-session_start(); 
-include('config.php');
-include('fun.php');
-$msg="";
-$lmsg="";
-if(isset( $_POST['lgbtn'] )){
-	if (empty($_POST["eml"])) {
-		$msg = "Email is required";
-	}else{
-		$email = test_input($_POST["eml"]);
-		// check if e-mail address is well-formed
-		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-		  $msg = "Invalid email format"; 
-		}
-	}
-	$pwd=test_input($_POST['pwd']);
-	$sql = "SELECT * FROM  `users` WHERE  `email`= '$email' AND  `password`='$pwd'";
-	$result=mysqli_query($conn, $sql);
-	$num=mysqli_num_rows($result);
-	if($num==1){
-		$row=mysqli_fetch_assoc($result);
-		$_SESSION['userID']=$row['uid'];
-		header('Location: home.php');
-	}else{
-		$lmsg="Invalid Email/Password";
-	}
-}
+<?php 
 if(isset( $_POST['regbtn'] )){
 	//print_r($_POST);
 	$unm=$_POST['unm'];
 	$mob=$_POST['mob'];
 	$eml=$_POST['eml'];
-	$pwd=$_POST['pwd'];
+	$pwd=$_POST['password'];
 	$gender=$_POST['gender'];
-	$date=$_POST['dob'];	
-	$sql = "INSERT INTO `users` ( `username`, `email`, `mobile`, `password`, `gender`, `dob`) VALUES ('$unm', '$eml', '$mob', '$pwd', '$gender', '$date')";
+	$checkbox=$_POST['checkbox'];
+	$date=date('Y-m-d');	
+	include('config.php');
+	$sql = "INSERT INTO `users` ( `unm`, `email`, `mob`, `pwd`, `gender`, `checkbox`) VALUES (\'$unm', \'$eml', \'$mob', \'	$pwd', \'$gender', \'$checkbox',)";
 	if(mysqli_query($conn, $sql)) {
-		$msg="New record created successfully";
+		echo "New record created successfully";
 	} else {
 		echo "Error: " . $sql. "<br>" . mysqli_error($conn);
 	}
-	//if(isset($_post(logbtn)
 }
-
 ?>
 <!DOCTYPE HTML>
 <html lang="en-US">
@@ -57,7 +30,6 @@ if(isset( $_POST['regbtn'] )){
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="js/ui/jquery-ui.min.css">
-	<link rel="stylesheet" href="validate/jquery.validate.css">
 </head>
 <body>
 	<nav class="navbar navbar-default" id="mynav">
@@ -91,52 +63,46 @@ if(isset( $_POST['regbtn'] )){
 			<div class="col-md-6">
 				<div class="tinku">
 					<h2>Login Here to connect with Friends</h2>
-					<p><?php echo $lmsg; ?></p>
-					<form action=" " method="post">
+					<form action="/action_page.php">
 					  <div class="form-group">
-						<input type="email" required class="form-control" id="email" placeholder="E-mail" name="eml">
+						<input type="email" class="form-control" id="email" placeholder="e-mail">
 					  </div>
 					  <div class="form-group">
-						<input type="password" required class="form-control" id="pwd" name="pwd" placeholder="Password">
+						<input type="password" class="form-control" id="pwd" placeholder="password">
 					  </div>
 					  <div class="checkbox">
 						<label><input type="checkbox"> Remember me</label>
 					  </div>
-					  <input type="submit" class="btn btn-success" value="Log In" style="width:30%; -webkit-box-shadow: -1px 9px 33px 0px rgba(0,0,0,0.75);
+					  <input type="submit" class="btn btn-success" value="Submit" style="width:30%; -webkit-box-shadow: -1px 9px 33px 0px rgba(0,0,0,0.75);
 						-moz-box-shadow: -1px 9px 33px 0px rgba(0,0,0,0.75);
-						box-shadow: -1px 9px 33px 0px rgba(0,0,0,0.75);" name="lgbtn">
+						box-shadow: -1px 9px 33px 0px rgba(0,0,0,0.75);" >
 					</form>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="tinku">
 					<h2>Want to mingle with your Friends</h2>
-					<p style="color:#fff;">
-					<?php echo $msg; ?>
-					</p>
-					<form id="regForm" method="post">
-					  <div class="form-group" >
-						<input type="text" class="form-control required" id="unm" name="unm" placeholder="Your Name">
+					<form action="/action_page.php">
+					  <div class="form-group">
+						<input type="text" class="form-control" id="unm" name="umn" placeholder="Your Name">
 					  </div>
 					  <div class="form-group">
-						<input type="email" class="form-control required" id="eml" name="eml" placeholder="Email Id"> 
+						<input type="email" class="form-control" id="eml" name="eml" placeholder="Email Id">
 					  </div>
 					  <div class="form-group">
-						<input type="text"  maxlength="10" minlength="10" class="form-control required" id="mob" name="mob" placeholder="Mobile Number">
+						<input type="text" class="form-control" id="mob" name="mob" placeholder="Mobile Number">
 					  </div>
 					  <div class="form-group">
-						<input type="password" class="form-control required" id="pwd" name="pwd" placeholder="Choose Password">
+						<input type="password" class="form-control" id="pwd" name="pwd" placeholder="Choose Password">
 					  </div>
 					  <div class="form-group">
 						<label class="radio-inline"><input type="radio" name="gender" value="male"> Male</label>
 						<label class="radio-inline"><input type="radio" name="gender" value="female"> Female</label>
 					  </div>
 					  <div class="form-group">
-						<input type="text" class="form-control required" id="dob" name="dob" placeholder="Date of Birth">
+						<input type="text" class="form-control" id="dob" name="dob" placeholder="Date of Birth">
 					  </div>
-					  <input type="submit" class="btn btn-success" name="regbtn" value="Sign Up"  style="width:30%; -webkit-box-shadow: -1px 9px 33px 0px rgba(0,0,0,0.75);
-						-moz-box-shadow: -1px 9px 33px 0px rgba(0,0,0,0.75);
-						box-shadow: -1px 9px 33px 0px rgba(0,0,0,0.75);">
+					  <input type="submit" class="btn btn-success" value="Sign Up">
 					</form>
 				</div>
 			</div>
@@ -152,7 +118,6 @@ if(isset( $_POST['regbtn'] )){
 	<!-- Latest compiled JavaScript -->
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/ui/jquery-ui.min.js"></script>
-	<script src="validate/jquery.validate.js"></script>
 	<script>
 		$( "#dob" ).datepicker({
 			inline: true,
@@ -162,11 +127,6 @@ if(isset( $_POST['regbtn'] )){
 			maxDate: '-20Y',
 			dateFormat:"yy-mm-dd"
 		});
-	</script>
-	<script>
-	$(document).ready(function(){
-		$("#regForm").validate();
-	});
 	</script>
 </body>
 </html>
